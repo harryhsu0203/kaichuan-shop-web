@@ -1,7 +1,8 @@
 const API_BASE = "https://kaichuan-api.onrender.com";
 
 const els = {
-  token: document.getElementById("token-input"),
+  user: document.getElementById("admin-user"),
+  pass: document.getElementById("admin-pass"),
   login: document.getElementById("login-btn"),
   logout: document.getElementById("logout-btn"),
   createForm: document.getElementById("create-form"),
@@ -23,14 +24,16 @@ function authHeaders() {
   return token ? { Authorization: "Bearer " + token } : {};
 }
 
-async function verifyToken() {
-  if (!token) return false;
-  const res = await fetch(API_BASE + "/admin/token", {
+async function login(username, password) {
+  const res = await fetch(API_BASE + "/admin/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token })
+    body: JSON.stringify({ username, password })
   });
-  return res.ok;
+  if (!res.ok) return false;
+  const data = await res.json();
+  setToken(data.token);
+  return true;
 }
 
 async function loadProducts() {
@@ -49,7 +52,7 @@ function renderList(list) {
     const node = els.rowTpl.content.firstElementChild.cloneNode(true);
     node.dataset.id = p.id;
     node.querySelector(".title").textContent = p.name;
-    node.querySelector(".meta").textContent = `${p.category} �?NT$ ${p.price.toLocaleString()} �?庫存 ${p.stock} �?${p.is_active ? "上架" : "下架"} �?${p.featured ? "精選" : ""}`;
+    node.querySelector(".meta").textContent = `${p.category} ｜ NT$ ${p.price.toLocaleString()} ｜ 庫存 ${p.stock} ｜ ${p.is_active ? "上架" : "下架"} ｜ ${p.featured ? "精選" : ""}`;
     const tagsBox = node.querySelector(".tags");
     tagsBox.innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join("");
     node.querySelector("[data-action='feature']").textContent = p.featured ? "取消精選" : "設為精選";
@@ -65,7 +68,7 @@ function renderList(list) {
 async function handleAction(product, action) {
   if (!token) return alert("請先登入");
   if (action === "delete") {
-    if (!confirm("確定刪除�?)) return;
+    if (!confirm("確定刪除？")) return;
     await authedFetch("/products/" + product.id, { method: "DELETE" });
   } else if (action === "feature") {
     await authedFetch("/products/" + product.id, {
@@ -95,13 +98,13 @@ async function authedFetch(path, options = {}) {
 
 function bindEvents() {
   els.login.addEventListener("click", async () => {
-    const val = els.token.value.trim();
-    if (!val) return alert("請輸�?token");
-    setToken(val);
-    const ok = await verifyToken();
+    const username = els.user.value.trim();
+    const password = els.pass.value.trim();
+    if (!username || !password) return alert("請輸入帳號與密碼");
+    const ok = await login(username, password);
     if (!ok) {
       setToken("");
-      alert("Token 驗證失敗");
+      alert("帳號或密碼錯誤");
     } else {
       alert("登入成功");
       loadProducts();
@@ -110,7 +113,7 @@ function bindEvents() {
 
   els.logout.addEventListener("click", () => {
     setToken("");
-    alert("已登�?);
+    alert("已登出");
   });
 
   els.createForm.addEventListener("submit", async (e) => {
@@ -134,7 +137,8 @@ function bindEvents() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       });
-      els.createHint.textContent = "已新�?;
+      els.createHint.textContent = "已新增";
+      els.createHint.style.color = "#d9b256";
       e.target.reset();
       loadProducts();
     } catch (err) {
@@ -154,17 +158,10 @@ function debounce(fn, wait) {
   };
 }
 
-async function init() {
-  els.token.value = token;
+function init() {
   bindEvents();
-  if (token && await verifyToken()) {
-    loadProducts();
-  }
+  if (token) loadProducts();
 }
 
 init();
-
-
-
-
 

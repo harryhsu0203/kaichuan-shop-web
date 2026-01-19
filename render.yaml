@@ -6,8 +6,10 @@
     buildCommand: "npm install"
     startCommand: "npm start"
     envVars:
-      - key: ADMIN_TOKEN
-        value: your-admin-token
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_PASS
+        value: 92304727
       - key: DB_PATH
         value: ./data.db
 

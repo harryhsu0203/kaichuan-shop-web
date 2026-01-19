@@ -6,7 +6,8 @@ import Database from "better-sqlite3";
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "admin-token";
+const ADMIN_USER = process.env.ADMIN_USER || "admin";
+const ADMIN_PASS = process.env.ADMIN_PASS || "92304727";
 const DB_PATH = process.env.DB_PATH || "data.db";
 
 const db = new Database(DB_PATH);
@@ -156,7 +157,7 @@ app.use(express.json({ limit: "2mb" }));
 function requireAdmin(req, res, next) {
   const auth = req.headers.authorization || "";
   const token = auth.replace("Bearer ", "");
-  if (token !== ADMIN_TOKEN) return res.status(401).json({ message: "Unauthorized" });
+  if (token !== "admin-auth") return res.status(401).json({ message: "Unauthorized" });
   next();
 }
 
@@ -297,9 +298,11 @@ app.get("/orders", requireAdmin, (req, res) => {
   res.json(rows.map(r => ({ ...r, items: JSON.parse(r.items) })));
 });
 
-app.post("/admin/token", (req, res) => {
-  const { token } = req.body || {};
-  if (token === ADMIN_TOKEN) return res.json({ ok: true });
+app.post("/admin/login", (req, res) => {
+  const { username, password } = req.body || {};
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    return res.json({ ok: true, token: "admin-auth" });
+  }
   res.status(401).json({ message: "Unauthorized" });
 });
 

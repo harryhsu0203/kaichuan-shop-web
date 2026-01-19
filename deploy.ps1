@@ -3,7 +3,8 @@ $ErrorActionPreference = "Stop"
 $repoDir = "C:\Users\user\Desktop\WEB TEST"
 $origin = "https://github.com/harryhsu0203/kaichuan-shop-web.git"
 $renderApi = "https://kaichuan-api.onrender.com"     # Render API
-$adminToken = "your-admin-token"          # 後台登入用 token
+$adminUser = "admin"
+$adminPass = "92304727"
 
 Set-Location $repoDir
 
@@ -21,8 +22,10 @@ services:
     buildCommand: "npm install"
     startCommand: "npm start"
     envVars:
-      - key: ADMIN_TOKEN
-        value: $adminToken
+      - key: ADMIN_USER
+        value: $adminUser
+      - key: ADMIN_PASS
+        value: $adminPass
       - key: DB_PATH
         value: ./data.db
 
