@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>凱銓科技後台</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">K</div>
+      <div>
+        <div class="brand-title">凱銓科技 · 後台</div>
+        <div class="brand-sub">商品管理 / 精選 / 上下架</div>
+      </div>
+    </div>
+    <div class="actions">
+      <input id="token-input" placeholder="輸入 ADMIN_TOKEN" />
+      <button id="login-btn" class="primary">登入</button>
+      <button id="logout-btn" class="ghost">登出</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>新增商品</h2>
+      <form id="create-form" class="form">
+        <div class="grid2">
+          <label>名稱<input name="name" required></label>
+          <label>分類
+            <select name="category" required>
+              <option value="電競主機">電競主機</option>
+              <option value="文書主機">文書主機</option>
+              <option value="螢幕">螢幕</option>
+              <option value="周邊">周邊</option>
+              <option value="零組件">零組件</option>
+            </select>
+          </label>
+        </div>
+        <div class="grid2">
+          <label>售價 (NT$)<input name="price" type="number" min="0" required></label>
+          <label>庫存<input name="stock" type="number" min="0" value="0"></label>
+        </div>
+        <label>標籤（逗號分隔）<input name="tags" placeholder="4090, 水冷, 靜音"></label>
+        <label>主圖 URL<input name="image" placeholder="https://..."></label>
+        <label>敘述<textarea name="desc" rows="3" placeholder="商品特色與配置"></textarea></label>
+        <div class="inline">
+          <label><input type="checkbox" name="featured"> 設為精選</label>
+          <label><input type="checkbox" name="is_active" checked> 上架</label>
+        </div>
+        <button class="primary" type="submit">新增商品</button>
+        <p id="create-hint" class="hint"></p>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="list-head">
+        <h2>商品列表</h2>
+        <input id="search" placeholder="搜尋名稱 / 標籤">
+      </div>
+      <div id="product-list" class="list"></div>
+    </section>
+  </main>
+
+  <template id="product-row">
+    <div class="row">
+      <div class="info">
+        <div class="title"></div>
+        <div class="meta"></div>
+        <div class="tags"></div>
+      </div>
+      <div class="actions-row">
+        <button data-action="feature" class="ghost">設為精選</button>
+        <button data-action="toggle" class="ghost">上/下架</button>
+        <button data-action="delete" class="danger">刪除</button>
+      </div>
+    </div>
+  </template>
+
+  <script src="admin.js"></script>
+</body>
+</html>
+
+
+
+
+

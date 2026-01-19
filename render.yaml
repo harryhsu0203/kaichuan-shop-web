@@ -1,0 +1,22 @@
+﻿services:
+  - type: web
+    name: kaichuan-api
+    env: node
+    rootDir: server
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: ADMIN_TOKEN
+        value: your-admin-token
+      - key: DB_PATH
+        value: /data/data.db
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
+
+  - type: static
+    name: kaichuan-web
+    rootDir: .
+    buildCommand: ""
+    staticPublishPath: .

@@ -1,0 +1,22 @@
+{
+  "name": "kaichuan-backend",
+  "version": "1.0.0",
+  "description": "Kaichuan Tech API (products, leads, orders)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "NODE_ENV=development node index.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
+
+
+
+
+

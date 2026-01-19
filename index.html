@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>凱銓科技 | 電競 / 水冷 精品電腦官網</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">K</div>
+      <div>
+        <div class="brand-title">凱銓科技</div>
+        <div class="brand-sub">電競 / 水冷 / 客製</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#hero">首頁</a>
+      <a href="#collections">精選主機</a>
+      <a href="#all-products">所有商品</a>
+      <a href="#services">服務 / 保固</a>
+      <a href="#members">會員</a>
+      <a href="#about">品牌故事</a>
+      <a href="#contact">聯繫我們</a>
+    </nav>
+    <div class="actions">
+      <a class="ghost" href="admin.html" target="_blank" rel="noopener">後台入口</a>
+      <button class="primary" id="open-cart">購物車 <span id="cart-count">0</span></button>
+    </div>
+  </header>
+
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">KAICHUAN PERFORMANCE LAB</p>
+      <h1>黑金質感，為戰而生</h1>
+      <p class="lede">凱銓科技專注電競、水冷與客製桌機，從零件選型、線材工藝到 BIOS 調校，全套交付並提供原廠級售後，開機即巔峰。</p>
+      <div class="hero-actions">
+        <button class="primary" onclick="scrollToSection('collections')">瀏覽精選主機</button>
+        <button class="ghost" onclick="scrollToSection('all-products')">查看所有商品</button>
+      </div>
+      <div class="hero-meta">
+        <div><strong>48h</strong><span>快速交付</span></div>
+        <div><strong>1對1</strong><span>專屬顧問</span></div>
+        <div><strong>終身</strong><span>保固諮詢</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="glass-card">
+        <p class="eyebrow">ATELIER</p>
+        <h3>Signature Atelier</h3>
+        <p>金屬拉絲 + 鍍鈦視覺語彙，內斂卻強悍。</p>
+        <ul>
+          <li>13代 / 14代 Intel® Core™ i9</li>
+          <li>NVIDIA® RTX™ 4090 Founders</li>
+          <li>定制液冷迴路 + 靜音風道</li>
+          <li>雷射刻印專屬序號</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="collections" class="section">
+    <div class="section-head">
+      <p class="eyebrow">COLLECTIONS</p>
+      <h2>精選旗艦主機</h2>
+      <p>為電競 / 創作打造的黑金系列，皆可依需求客製。</p>
+    </div>
+    <div class="grid" id="featured-grid"></div>
+  </section>
+
+  <section id="all-products" class="section surface">
+    <div class="section-head">
+      <p class="eyebrow">ALL PRODUCTS</p>
+      <h2>所有商品</h2>
+      <p>電競主機、文書主機、螢幕、周邊、零組件，一站式選購。</p>
+    </div>
+    <div class="filters">
+      <input type="search" id="search" placeholder="搜尋產品 / 關鍵字">
+      <select id="category">
+        <option value="all">全部分類</option>
+        <option value="電競主機">電競主機</option>
+        <option value="文書主機">文書主機</option>
+        <option value="螢幕">電腦螢幕</option>
+        <option value="周邊">周邊配件</option>
+        <option value="零組件">DIY 零組件</option>
+      </select>
+      <select id="sort">
+        <option value="featured">精選排序</option>
+        <option value="price-asc">價格由低至高</option>
+        <option value="price-desc">價格由高至低</option>
+      </select>
+      <button class="ghost" id="open-line">LINE 專人</button>
+    </div>
+    <div class="grid" id="product-grid"></div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="section-head">
+      <p class="eyebrow">SERVICE & WARRANTY</p>
+      <h2>服務 / 保固</h2>
+      <p>購買流程、保固須知、安裝到府、維護健檢，一次到位。</p>
+    </div>
+    <div class="about">
+      <div class="card">
+        <h3>購買流程</h3>
+        <p>專員諮詢 → 客製報價 → 下單付款 → 測試交付，全程照片與紀錄。</p>
+      </div>
+      <div class="card">
+        <h3>保固服務</h3>
+        <p>整機一年保固，主要零件依原廠，提供到府收送與備機方案。</p>
+      </div>
+      <div class="card">
+        <h3>疑難支援</h3>
+        <p>線上遠端 / LINE / 電話支援，提供 FAQ 與教學影片，快速排除問題。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="members" class="section surface">
+    <div class="section-head">
+      <p class="eyebrow">MEMBERSHIP</p>
+      <h2>會員禮遇</h2>
+      <p>立即加入，享有專屬顧問、優先交付、VIP 維護方案。</p>
+    </div>
+    <form id="member-form" class="card form">
+      <div class="field">
+        <label>姓名</label>
+        <input required name="name" placeholder="王小明">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input required type="email" name="email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label>聯絡電話</label>
+        <input required name="phone" placeholder="09xx-xxx-xxx">
+      </div>
+      <div class="field">
+        <label>用途</label>
+        <select name="intent">
+          <option value="content">內容創作</option>
+          <option value="gaming">電競 / 遊戲</option>
+          <option value="enterprise">企業部署</option>
+          <option value="other">其他需求</option>
+        </select>
+      </div>
+      <button class="primary" type="submit">加入會員</button>
+      <p class="helper" id="member-hint"></p>
+    </form>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section-head">
+      <p class="eyebrow">ABOUT</p>
+      <h2>品牌故事</h2>
+      <p>我們融合工藝美學與硬體工程，為講究質感的您打造擁有收藏價值的電腦。</p>
+    </div>
+    <div class="about">
+      <div class="card">
+        <h3>嚴選硬體</h3>
+        <p>與 Intel、NVIDIA、Corsair 等夥伴合作，採用經驗證的頂規料件，確保穩定與性能一致性。</p>
+      </div>
+      <div class="card">
+        <h3>定制工藝</h3>
+        <p>從塗裝、雷射刻印到線材客製，皆有專屬工匠製作，序號制保證唯一性。</p>
+      </div>
+      <div class="card">
+        <h3>尊榮服務</h3>
+        <p>1 對 1 專屬顧問、到府健檢、原廠級維護，確保每一次開機都像第一天。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section surface">
+    <div class="section-head">
+      <p class="eyebrow">CONTACT</p>
+      <h2>聯繫我們</h2>
+      <p>LINE 專人 / 私訊諮詢 / 展間預約。</p>
+    </div>
+    <div class="contact">
+      <div class="card">
+        <h3>LINE 專員</h3>
+        <p>加入官方 LINE，即時詢問配置、交期與售後。</p>
+        <button class="primary" id="contact-line">加入 LINE</button>
+      </div>
+      <div class="card">
+        <h3>展間預約</h3>
+        <p>台北信義｜高雄夢時代，私享體驗，專人接待。</p>
+        <button class="ghost" onclick="alert('已收到預約需求，顧問將與您聯繫。')">預約參觀</button>
+      </div>
+      <div class="card">
+        <h3>售後支援</h3>
+        <p>24/7 線上支援，遠端診斷與到府維護服務。</p>
+        <button class="ghost" onclick="alert('我們會盡速與您聯繫。')">提交需求</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      <div class="brand-title">凱銓科技</div>
+      <p>電競 / 水冷 / 客製，黑金質感。</p>
+    </div>
+    <div class="footer-links">
+      <a href="#collections">精選主機</a>
+      <a href="#all-products">所有商品</a>
+      <a href="#services">服務 / 保固</a>
+      <a href="#members">會員</a>
+      <a href="#about">品牌故事</a>
+      <a href="#contact">聯繫我們</a>
+    </div>
+    <div class="footer-meta">
+      <span>LINE: @kaichuan</span>
+      <span>客服: service@kaichuan.com</span>
+    </div>
+  </footer>
+
+  <div class="modal" id="cart-modal">
+    <div class="modal-content">
+      <button class="close" data-close>×</button>
+      <h3>購物車</h3>
+      <div id="cart-items"></div>
+      <div class="cart-summary">
+        <div>合計</div>
+        <div id="cart-total">$0</div>
+      </div>
+      <button class="primary" id="checkout">提交訂單</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
