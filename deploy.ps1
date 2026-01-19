@@ -24,11 +24,7 @@ services:
       - key: ADMIN_TOKEN
         value: $adminToken
       - key: DB_PATH
-        value: /data/data.db
-    disk:
-      name: data
-      mountPath: /data
-      sizeGB: 1
+        value: ./data.db
 
   - type: web
     name: kaichuan-web
