@@ -15,8 +15,8 @@
       mountPath: /data
       sizeGB: 1
 
-  - type: static_site
-    name: kaichuan-web
+staticSites:
+  - name: kaichuan-web
     rootDir: .
     buildCommand: ""
-    staticPublishPath: .
+    publishPath: .
