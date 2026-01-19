@@ -8,8 +8,15 @@ const els = {
   createForm: document.getElementById("create-form"),
   createHint: document.getElementById("create-hint"),
   list: document.getElementById("product-list"),
+  orderList: document.getElementById("order-list"),
+  leadList: document.getElementById("lead-list"),
   search: document.getElementById("search"),
-  rowTpl: document.getElementById("product-row")
+  rowTpl: document.getElementById("product-row"),
+  statProducts: document.getElementById("stat-products"),
+  statOrders: document.getElementById("stat-orders"),
+  statLeads: document.getElementById("stat-leads"),
+  tabs: Array.from(document.querySelectorAll(".tab")),
+  panels: Array.from(document.querySelectorAll(".panel"))
 };
 
 let token = localStorage.getItem("admin_token") || "";
@@ -44,6 +51,23 @@ async function loadProducts() {
   const res = await fetch(url);
   const data = await res.json();
   renderList(data);
+  els.statProducts.textContent = data.length;
+}
+
+async function loadOrders() {
+  if (!token) return;
+  const res = await authedFetch("/orders");
+  const data = await res.json();
+  renderOrders(data);
+  els.statOrders.textContent = data.length;
+}
+
+async function loadLeads() {
+  if (!token) return;
+  const res = await authedFetch("/leads");
+  const data = await res.json();
+  renderLeads(data);
+  els.statLeads.textContent = data.length;
 }
 
 function renderList(list) {
@@ -63,6 +87,32 @@ function renderList(list) {
     });
     els.list.appendChild(node);
   });
+}
+
+function renderOrders(list) {
+  els.orderList.innerHTML = list.map(order => {
+    const items = order.items.map(i => `${i.id} x${i.qty}`).join(", ");
+    return `
+      <div class="row">
+        <div class="info">
+          <div class="title">訂單 ${order.id}</div>
+          <div class="meta">總額 NT$ ${order.total.toLocaleString()} ｜ ${new Date(order.created_at).toLocaleString()}</div>
+          <div class="tags"><span class="tag">${items}</span></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderLeads(list) {
+  els.leadList.innerHTML = list.map(lead => `
+    <div class="row">
+      <div class="info">
+        <div class="title">${lead.name} (${lead.intent || "未填"})</div>
+        <div class="meta">${lead.email} ｜ ${lead.phone || "未提供"} ｜ ${new Date(lead.created_at).toLocaleString()}</div>
+      </div>
+    </div>
+  `).join("");
 }
 
 async function handleAction(product, action) {
@@ -96,7 +146,14 @@ async function authedFetch(path, options = {}) {
   return res;
 }
 
+function switchTab(tabId) {
+  els.tabs.forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tabId));
+  els.panels.forEach(panel => panel.classList.toggle("show", panel.id === tabId));
+}
+
 function bindEvents() {
+  els.tabs.forEach(btn => btn.addEventListener("click", () => switchTab(btn.dataset.tab)));
+
   els.login.addEventListener("click", async () => {
     const username = els.user.value.trim();
     const password = els.pass.value.trim();
@@ -107,7 +164,7 @@ function bindEvents() {
       alert("帳號或密碼錯誤");
     } else {
       alert("登入成功");
-      loadProducts();
+      refreshAll();
     }
   });
 
@@ -140,7 +197,7 @@ function bindEvents() {
       els.createHint.textContent = "已新增";
       els.createHint.style.color = "#d9b256";
       e.target.reset();
-      loadProducts();
+      refreshAll();
     } catch (err) {
       els.createHint.textContent = err.message;
       els.createHint.style.color = "tomato";
@@ -158,9 +215,15 @@ function debounce(fn, wait) {
   };
 }
 
+function refreshAll() {
+  loadProducts();
+  loadOrders();
+  loadLeads();
+}
+
 function init() {
   bindEvents();
-  if (token) loadProducts();
+  if (token) refreshAll();
 }
 
 init();
