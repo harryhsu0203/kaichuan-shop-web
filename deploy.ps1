@@ -30,8 +30,9 @@ services:
       mountPath: /data
       sizeGB: 1
 
-  - type: static
+  - type: web
     name: kaichuan-web
+    env: static
     rootDir: .
     buildCommand: ""
     staticPublishPath: .
